@@ -5,6 +5,7 @@ using namespace std;
 
 #include "TimeCode.h"
 
+// Test function for converting hours, minutes, and seconds into total seconds
 void TestComponentsToSeconds(){
     cout << "Testing ComponentsToSeconds" << endl;
     long long unsigned int t = TimeCode::ComponentsToSeconds(3, 17, 42);
@@ -16,6 +17,7 @@ void TestComponentsToSeconds(){
     cout << "PASSED!" << endl << endl;
 }
 
+// Test default constructor, ensuring TimeCode initializes to 0:0:0
 void TestDefaultConstructor(){
     cout << "Testing Default Constructor" << endl;
     TimeCode tc;
@@ -23,6 +25,7 @@ void TestDefaultConstructor(){
     cout << "PASSED!" << endl << endl;
 }
 
+// Test constructor with various input combinations
 void TestComponentConstructor(){
     cout << "Testing Component Constructor" << endl;
     TimeCode tc = TimeCode(0, 0, 0);
@@ -40,6 +43,7 @@ void TestComponentConstructor(){
     cout << "PASSED!" << endl << endl;
 }
 
+// Test function to extract hour, minute, second components
 void TestGetComponents(){
     cout << "Testing GetComponents" << endl;
     unsigned int h, m, s;
@@ -58,12 +62,14 @@ void TestGetComponents(){
     cout << "PASSED!" << endl << endl;
 }
 
+// Test subtraction operator with proper error handling
 void TestSubtract(){
     cout << "Testing Subtract" << endl;
     TimeCode tc1 = TimeCode(1, 0, 0);
     TimeCode tc2 = TimeCode(0, 50, 0);
     TimeCode tc3 = tc1 - tc2;
     assert(tc3.ToString() == "0:10:0");
+    // Test case where subtraction results in negative time (should throw an error)
     TimeCode tc4 = TimeCode(1, 15, 45);
     try{
         TimeCode tc5 = tc1 - tc4;
@@ -84,11 +90,13 @@ void TestSubtract(){
     cout << "PASSED!" << endl << endl;
 }
 
+// Test function to set minutes and check error handling
 void TestSetMinutes(){
     cout << "Testing SetMinutes" << endl;
     TimeCode tc = TimeCode(8, 5, 9);
     tc.SetMinutes(15);
     assert(tc.ToString() == "8:15:9");
+    //  Invalid minute value should trigger exception
     try{
         tc.SetMinutes(80);
         assert(false);
@@ -98,6 +106,7 @@ void TestSetMinutes(){
     cout << "PASSED!" << endl << endl;
 }
 
+//  Test various edge cases for normalization
 void TestEdgeCases(){
     cout << "Testing Edge Cases" << endl;
     TimeCode tc1(0, 0, 3661);
@@ -111,6 +120,7 @@ void TestEdgeCases(){
     cout << "PASSED!" << endl;
 }
 
+// Test arithmetic operators: addition, subtraction, multiplication, and division
 void TestArithmeticOperations(){
     cout << "Testing Arithmetic Operations" << endl;
     TimeCode tc1(1, 0, 0);
@@ -122,6 +132,7 @@ void TestArithmeticOperations(){
     cout << "PASSED!" << endl;
 }
 
+// Test comparison operators (>, >=, <, <=, ==, !=)
 void TestComparisons(){
     cout << "Testing Comparisons" << endl;
     TimeCode tc1(2, 0, 0);
@@ -136,6 +147,7 @@ void TestComparisons(){
     cout << "PASSED!" << endl;
 }
 
+// Main function to execute all tests
 int main(){
     TestComponentsToSeconds();
     TestDefaultConstructor();
