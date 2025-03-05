@@ -91,12 +91,22 @@ TimeCode TimeCode::operator-(const TimeCode& other) const {
 }
 
 TimeCode TimeCode::operator*(double a) const {
-    return TimeCode(0, 0, static_cast<long long unsigned int>(t * a));
+    if (a < 0) throw invalid_argument("Negative multiplication is not allowed");
+    long long unsigned int newTime = static_cast<long long unsigned int>(t * a);
+    unsigned int h = newTime / 3600;
+    unsigned int m = (newTime % 3600) / 60;
+    unsigned int s = newTime % 60;
+    return TimeCode(h, m, s);
 }
 
 TimeCode TimeCode::operator/(double a) const {
     if (a == 0) throw invalid_argument("Division by zero");
-    return TimeCode(0, 0, static_cast<long long unsigned int>(t / a));
+    if (a < 0) throw invalid_argument("Negative division is not allowed");
+    long long unsigned int newTime = static_cast<long long unsigned int>(t / a);
+    unsigned int h = newTime / 3600;
+    unsigned int m = (newTime % 3600) / 60;
+    unsigned int s = newTime % 60;
+    return TimeCode(h, m, s);
 }
 
 // Comparisons
