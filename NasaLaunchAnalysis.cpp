@@ -27,8 +27,10 @@ vector<string> breakIntoParts(const string &text, char delimiter) {
 }
 
 int main() {
+    //Open the csv file for reading
     ifstream dataFile("Space_Corrected.csv");
 
+    //Checking if file is successfully opened
     if (!dataFile.is_open()) {
         cerr << "Failed to open the file." << endl;
         return 1;
@@ -37,8 +39,8 @@ int main() {
     string header;
     getline(dataFile, header); // Skip the header line
 
-    TimeCode cumulativeTime(0, 0, 0);
-    int entriesProcessed = 0;
+    TimeCode cumulativeTime(0, 0, 0); //Initializing a TimeCode object to accumulate total time
+    int entriesProcessed = 0; // A counter to track the number of valid entries processed
 
     string row;
     while (getline(dataFile, row)) {
@@ -52,6 +54,7 @@ int main() {
         }
     }
 
+    //Checking if any valid entries were processed
     if (entriesProcessed > 0) {
         TimeCode meanTime = cumulativeTime / entriesProcessed;
         cout << "Total entries analyzed: " << entriesProcessed << endl;
@@ -60,6 +63,7 @@ int main() {
         cout << "No valid entries found." << endl;
     }
 
+    //Close the file
     dataFile.close();
     return 0;
 }
